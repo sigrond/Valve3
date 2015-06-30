@@ -1,0 +1,34 @@
+﻿Build started 2015-06-30 14:09:08.
+     1>Project "F:\Moje dokumenty\Valve3\Valve3.vcxproj" on node 2 (Rebuild target(s)).
+     1>ClCompile:
+         F:\Program Files\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I\. /I\include /Zi /nologo /W1 /WX- /O2 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _MT /D DLL /D DUMPBIN /Gm- /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gz /TP /analyze- /errorReport:prompt Valve3.cpp Valve3Prop.cpp
+         Valve3.cpp
+         Valve3Prop.cpp
+         Generating Code...
+       ResourceCompile:
+         D:\Program Files\Windows Kits\8.1\bin\x86\rc.exe /l"0x0409" /nologo /fo"Release\Valve3.res" Valve3.rc 
+     1>D:\Program Files\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(1193,5): warning MSB8012: TargetPath(F:\Moje dokumenty\Valve3\Release\Valve_echo.dll) does not match the Linker's OutputFile property value (F:\Moje dokumenty\Valve3\Release\Valve3.ax). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     1>D:\Program Files\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(1194,5): warning MSB8012: TargetExt(.dll) does not match the Linker's OutputFile property value (.ax). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     1>D:\Program Files\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(1195,5): warning MSB8012: TargetName(Valve_echo) does not match the Linker's OutputFile property value (Valve3). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+       Link:
+         F:\Program Files\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"Release\Valve3.ax" /INCREMENTAL /NOLOGO /LIBPATH:\Release /LIBPATH:\lib ws2_32.lib /DEF:"Valve3.def" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:"Release\Valve_echo.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Release\Valve_echo.lib" /MACHINE:X86 /SAFESEH /FORCE:MULTIPLE /DLL Release\Valve3.res
+         Release\Valve3.obj
+         Release\Valve3Prop.obj
+     1>LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/FORCE' specification
+     1>Strmbasd.lib(wxdebug.obj) : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:ICF' specification
+     1>MSVCRTD.lib(ti_inst.obj) : warning LNK4006: "private: __thiscall type_info::type_info(class type_info const &)" (??0type_info@@AAE@ABV0@@Z) already defined in LIBCMTD.lib(typinfo.obj); second definition ignored
+     1>MSVCRTD.lib(ti_inst.obj) : warning LNK4006: "private: class type_info & __thiscall type_info::operator=(class type_info const &)" (??4type_info@@AAEAAV0@ABV0@@Z) already defined in LIBCMTD.lib(typinfo.obj); second definition ignored
+            Creating library Release\Valve_echo.lib and object Release\Valve_echo.exp
+     1>LINK : warning LNK4098: defaultlib 'MSVCRTD' conflicts with use of other libs; use /NODEFAULTLIB:library
+     1>Release\Valve3.ax : warning LNK4088: image being generated due to /FORCE option; image may not run
+         Valve3.vcxproj -> F:\Moje dokumenty\Valve3\Release\Valve_echo.dll
+       PostBuildEvent:
+         regsvr32 /s "F:\Moje dokumenty\Valve3\Release\Valve_echo.dll"
+         :VCEnd
+     1>D:\Program Files\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets(132,5): error MSB3073: The command "regsvr32 /s "F:\Moje dokumenty\Valve3\Release\Valve_echo.dll"
+D:\Program Files\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppCommon.targets(132,5): error MSB3073: :VCEnd" exited with code 3.
+     1>Done Building Project "F:\Moje dokumenty\Valve3\Valve3.vcxproj" (Rebuild target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:08.48

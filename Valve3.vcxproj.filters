@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{b5e95219-a0ff-4654-b486-c8ac71d2ab4d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="iValve3.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Valve3.h" />
+    <ClInclude Include="Valve3Prop.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Valve3.cpp" />
+    <ClCompile Include="Valve3Prop.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Valve3.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Valve3.def" />
+  </ItemGroup>
+</Project>
