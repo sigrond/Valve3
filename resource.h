@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
-// Used by InPlaceTransformTemplate.rc
+// Microsoft Visual C++ generated include file.
+// Used by Valve3.rc
 //
 #define VERSION_RES_MINOR_VER           0
 #define VERSION_RES_BUILD               0

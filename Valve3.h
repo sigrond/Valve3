@@ -1,6 +1,9 @@
 #pragma once
 
 //#include <cstring>
+
+
+
 class CValve3
 	: public CTransInPlaceFilter,
 	  public IValve3,
@@ -10,6 +13,9 @@ class CValve3
 public:
 
     static CUnknown *WINAPI CreateInstance(LPUNKNOWN punk, HRESULT *phr);
+
+	static int object_counter;
+	int my_internal_number;
 
     DECLARE_IUNKNOWN;
 
@@ -44,3 +50,5 @@ private:
 	Valve3Parameters m_Valve3Parameters;
 	CCritSec m_Valve3Lock;
 };
+
+int CValve3::object_counter = 0;//unikalne numery obiektow

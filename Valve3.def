@@ -1,5 +1,5 @@
 
-LIBRARY         Valve3.Ax
+LIBRARY         Valve_echo2.Ax
 EXPORTS
                DllGetClassObject PRIVATE
                DllCanUnloadNow PRIVATE

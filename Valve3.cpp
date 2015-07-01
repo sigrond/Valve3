@@ -18,6 +18,8 @@
 #include <cstdio>
 #include <fstream>
 #include <process.h>
+#include <vector>
+#include <string>
 
 //poczatek oryginalnych naglowkow
 #include <streams.h>     // DirectShow (includes windows.h)
@@ -42,13 +44,17 @@
 #pragma comment(lib,"winmm.lib")
 
 
+#define DEFAULT_PORT "27016"
 
-
-#define TRANSFORM_NAME L"Valve_echo Filter"
+#define TRANSFORM_NAME L"Valve_echo2 Filter"
 
 using namespace std;//jesli by cos nie dzialalo, tzn, ze trzeba dawac idywidualnie do polecen tego wymagajacych
 
-bool bo1=false,bo2=false;
+//string port_nr = DEFAULT_PORT;
+vector<string> port_nr = { DEFAULT_PORT, "27017", "27018", "27019", "27020", "27021", "27022", "27023", "27024", "27025" };
+
+bool bo1[] = { false, false, false, false, false, false, false, false, false, false };
+bool bo2[] = { false, false, false, false, false, false, false, false, false, false };
 
 // setup data - allows the self-registration to work.
 const AMOVIESETUP_MEDIATYPE sudPinTypes =
@@ -107,6 +113,7 @@ void WriteProfileInt(TCHAR *section, TCHAR *key, int i)
 {
 	TCHAR str[80];
 	_stprintf(str, TEXT("%d"), i);
+	//port_nr = string(str);
 	WriteProfileString(section, key, str);
 }
 
@@ -117,10 +124,11 @@ void WriteProfileInt(TCHAR *section, TCHAR *key, int i)
 //
 CValve3::CValve3(TCHAR *tszName, LPUNKNOWN punk, HRESULT *phr)
 	: CTransInPlaceFilter (tszName, punk, CLSID_Valve3, phr), 
-      CPersistStream(punk, phr)
+	CPersistStream(punk, phr), my_internal_number(object_counter++)
 {
 	// TODO: read parameters from profile
-	m_Valve3Parameters.param1 = GetProfileInt(TEXT("Valve3"), TEXT("param1"), 0);
+	string s = "port" + to_string(my_internal_number);
+	m_Valve3Parameters.param1 = GetProfileInt(TEXT("Valve_echo2"), TEXT((TCHAR*)s.c_str()), stoi(port_nr.at(my_internal_number)));
 }
 
 //
@@ -131,7 +139,8 @@ CValve3::CValve3(TCHAR *tszName, LPUNKNOWN punk, HRESULT *phr)
 CValve3::~CValve3()
 {
 	// TODO: write parameters from profile
-	WriteProfileInt(TEXT("Valve3"), TEXT("param1"), m_Valve3Parameters.param1);
+	string s = "port" + to_string(my_internal_number);
+	WriteProfileInt(TEXT("Valve_echo2"), TEXT((TCHAR*)s.c_str()), m_Valve3Parameters.param1);
 }
 
 //
@@ -143,7 +152,8 @@ CValve3::~CValve3()
 HANDLE hPThread;
 void __cdecl PortThread(void* Args)
 {
-	bo1=true;
+	int my_number = *(static_cast<int*> (Args));
+	bo1[my_number]=true;
 //begin
 WSADATA wsaData;
 int iResult;
@@ -154,8 +164,8 @@ hints.ai_family = AF_INET;
 hints.ai_socktype = SOCK_STREAM;
 hints.ai_protocol = IPPROTO_TCP;
 hints.ai_flags = AI_PASSIVE;
-#define DEFAULT_PORT "27016"
-iResult = getaddrinfo(NULL, DEFAULT_PORT, &hints, &result);
+
+iResult = getaddrinfo(NULL, port_nr.at(my_number).c_str(), &hints, &result);
 SOCKET ListenSocket = INVALID_SOCKET;
 ListenSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
 iResult = bind( ListenSocket, result->ai_addr, (int)result->ai_addrlen);
@@ -182,9 +192,9 @@ do {
         // Echo the buffer back to the sender
         iSendResult = send(ClientSocket, recvbuf, iResult, 0);
 		if(iSendResult==5)
-			bo2=true;
+			bo2[my_number] = true;
 		else if(iSendResult==3)
-			bo2=false;
+			bo2[my_number] = false;
         if (iSendResult == SOCKET_ERROR) {
             //printf("send failed: %d\n", WSAGetLastError());
             closesocket(ClientSocket);
@@ -206,7 +216,7 @@ iResult = shutdown(ClientSocket, SD_SEND);
 closesocket(ClientSocket);
 WSACleanup();
 //end
-	bo1=false;
+	bo1[my_number] = false;
 	_endthread();
 }
 HRESULT CValve3::Transform(IMediaSample *pSample)
@@ -214,9 +224,10 @@ HRESULT CValve3::Transform(IMediaSample *pSample)
 	// TODO: insert transform code here
  struct _stat fileInfo;
  //*******************************************************************************//
- if(!bo1)
- hPThread=(HANDLE) _beginthread(PortThread,0,NULL);
- if (!bo2/*_stat("C:/recording.txt", &fileInfo) != 0*/)
+ port_nr.at(my_internal_number) = to_string(m_Valve3Parameters.param1);
+ if(!bo1[my_internal_number])
+	 hPThread = (HANDLE)_beginthread(PortThread, 0, &my_internal_number);
+ if (!bo2[my_internal_number]/*_stat("C:/recording.txt", &fileInfo) != 0*/)
  {
 	return S_FALSE;
  }
@@ -269,7 +280,7 @@ STDMETHODIMP CValve3::NonDelegatingQueryInterface(REFIID riid, void **ppv)
 // Provide the way for COM to create a CValve3 object
 CUnknown * WINAPI CValve3::CreateInstance(LPUNKNOWN punk, HRESULT *phr) {
 
-    CValve3 *pNewObject = new CValve3(NAME("Valve_echo"), punk, phr );
+    CValve3 *pNewObject = new CValve3(NAME("Valve_echo2"), punk, phr );
     if (pNewObject == NULL) {
         *phr = E_OUTOFMEMORY;
     }
@@ -430,7 +441,7 @@ extern "C" BOOL WINAPI DllEntryPoint(HINSTANCE, ULONG, LPVOID);
 
 BOOL WINAPI DllMain(HANDLE hDllHandle, DWORD dwReason, LPVOID lpReserved)
 {
-	if(!bo1)
- hPThread=(HANDLE) _beginthread(PortThread,0,NULL);
+/*	if(!bo1)
+ hPThread=(HANDLE) _beginthread(PortThread,0,NULL);*/
 	return DllEntryPoint(reinterpret_cast<HINSTANCE>(hDllHandle), dwReason, lpReserved);
 }

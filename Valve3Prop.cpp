@@ -7,10 +7,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <tchar.h>
+#include <string>
+#include <vector>
 #include "resource.h"
 #include "iValve3.h"
 #include "Valve3.h"
 #include "Valve3Prop.h"
+
+extern std::vector<std::string> port_nr;
 
 //
 // CreateInstance
@@ -158,6 +162,7 @@ void CValve3Properties::GetControlValues()
 
     Edit_GetText(GetDlgItem(m_Dlg, IDC_PARAM1), sz, STR_MAX_LENGTH);
 	Valve3Parameters.param1 = _ttoi(sz);
+	//port_nr.at() = std::string(sz);
 	
 
 
