@@ -127,7 +127,7 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(DSHOWBASECLASSES)\.;$(DXSDK)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_MT;DLL;DUMPBIN</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader />
       <PrecompiledHeaderFile>streams.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>./Release/Valve3.pch</PrecompiledHeaderOutputFile>
