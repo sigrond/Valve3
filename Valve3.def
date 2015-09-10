@@ -1,6 +1,7 @@
 
 LIBRARY         Valve_echo2.Ax
 EXPORTS
+			   DllMain             PRIVATE
                DllGetClassObject PRIVATE
                DllCanUnloadNow PRIVATE
                DllRegisterServer PRIVATE

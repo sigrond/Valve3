@@ -1,3 +1,5 @@
+#define _NDEBUG
+
 #include <windows.h>
 #include <windowsx.h>
 #include <streams.h>

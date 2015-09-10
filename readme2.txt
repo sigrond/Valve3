@@ -33,3 +33,6 @@ od teraz serwer uruchamia siê dopiero przy rozpoczêciu transformacji,
 
 
 repozytorium: https://github.com/sigrond/Valve3
+
+linkowa³a siê z³a wersja strmbase.lib
+podmieni³em w D:\Program Files\Windows Kits\8.1\Lib\winv6.3\um\x86 na moj¹ wersjê

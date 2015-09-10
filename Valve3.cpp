@@ -7,11 +7,18 @@
 #define _NDEBUG
 
 
-#include <winsock2.h>
-#include <ws2tcpip.h>
-
 #pragma comment(lib, "Ws2_32.lib")
 #pragma comment(lib, "wsock32.lib")
+
+#pragma comment(lib,"strmbase.lib")
+#pragma comment(lib,"Strmiids.lib")
+#pragma comment(lib,"msvcrt.lib")
+#pragma comment(lib,"winmm.lib")
+#pragma comment(lib,"quartz.lib")
+
+
+#include <winsock2.h>
+#include <ws2tcpip.h>
 
 
 #include <cstdlib>
@@ -41,9 +48,6 @@
 #include <OleCtl.h>
 #include <atlbase.h>
 
-#pragma comment(lib,"Strmiids.lib")
-#pragma comment(lib,"Strmbasd.lib")
-#pragma comment(lib,"winmm.lib")
 
 
 #define DEFAULT_PORT "27016"
