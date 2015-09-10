@@ -4,6 +4,8 @@
 #define WINVER 0x0501
 #define _WIN32_WINNT 0x0501
 
+#define _NDEBUG
+
 
 #include <winsock2.h>
 #include <ws2tcpip.h>
